@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const wordInput = document.getElementById("wordInput");
   const goToWordButton = document.getElementById("goToWordButton");
   const wordElement = document.getElementById("word");
-  const kasusElement = document.getElementById("kasus");
   const meaningElement = document.getElementById("meaning");
   const exampleElement = document.getElementById("example");
   const wordCountElement = document.getElementById("wordCount");
@@ -22,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(data => {
         const lines = data.split('\n');
         words = lines.map(line => {
-          const [word, kasus, meaning, example] = line.split('|').map(part => part.trim());
-          return { word, kasus, meaning, example };
+          const [word, meaning, example] = line.split('|').map(part => part.trim());
+          return { word, meaning, example };
         });
         displayWord(currentIndex);
       })
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
   function displayWord(index) {
     const wordObj = words[index];
     wordElement.textContent = wordObj.word;
-    kasusElement.textContent = wordObj.kasus;
     meaningElement.textContent = wordObj.meaning;
     exampleElement.textContent = wordObj.example;
     wordCountElement.textContent = `${index + 1}/${words.length}`; // Update the word count
